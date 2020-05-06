@@ -1,0 +1,97 @@
+
+<html lang="fr">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <meta charset="UTF-8">
+        <title>predictions</title>
+
+        <!-- Resources -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+        <script src="static/script.js"></script>
+
+        <!-- Styles -->
+        <style>
+            html, body {
+	            background-color: #fdfdfd;
+                margin: 15px;
+                padding-top: 50px;
+            }
+            #evolution, #prediction {
+                width: 80%;
+                height: 250px;
+            }
+        </style>
+        
+
+        <script>
+            var data = 
+            window.onload = function () {
+                renderEvolutionCharts('{{ data|tojson|safe }}');
+                renderPredictionCharts('{{ predictions|tojson|safe }}');
+            }
+        </script>
+    </head>
+    
+    <body>
+        <div>
+            <h2>Prédictions</h2>
+            <div class="row">
+                <div class="col-sm-6">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th>Date</th>
+                            <th>Nouveau cas</th>
+                            <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in predictions  %}
+                                <tr>
+                                    <td>{{ p.date }}</td>
+                                    <td>+{{ p.ajout }}</td>
+                                    <td>{{ p.cumul }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-6">
+                    <div id="prediction"></div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2>Evolution</h2>
+            <div class="row">
+                <div class="col-sm-6">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th>Date</th>
+                            <th>Nouveau cas</th>
+                            <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in data  %}
+                                <tr>
+                                    <td>{{ p.date }}</td>
+                                    <td>+{{ p.ajout }}</td>
+                                    <td>{{ p.cumul }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-6">
+                    <div id="evolution"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
