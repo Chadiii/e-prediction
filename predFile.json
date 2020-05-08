@@ -1,37 +1,86 @@
 [
     {
+        "date": "2020-05-01",
+        "ajout": 105,
+        "cumul": 4528,
+        "obsvAjout": 146,
+        "obsvCumul": 4569
+    },
+    {
+        "date": "2020-05-02",
+        "ajout": 106,
+        "cumul": 4634,
+        "obsvAjout": 160,
+        "obsvCumul": 4729
+    },
+    {
         "date": "2020-05-03",
-        "ajout": 162,
-        "cumul": 4891
+        "ajout": 142,
+        "cumul": 4871,
+        "obsvAjout": 174,
+        "obsvCumul": 4903
     },
     {
         "date": "2020-05-04",
-        "ajout": 174,
-        "cumul": 5065
+        "ajout": 175,
+        "cumul": 5078,
+        "obsvAjout": 150,
+        "obsvCumul": 5053
     },
     {
         "date": "2020-05-05",
-        "ajout": 176,
-        "cumul": 5241
+        "ajout": 158,
+        "cumul": 5211,
+        "obsvAjout": 166,
+        "obsvCumul": 5219
     },
     {
         "date": "2020-05-06",
-        "ajout": 183,
-        "cumul": 5424
+        "ajout": 170,
+        "cumul": 5389,
+        "obsvAjout": 189,
+        "obsvCumul": 5408
     },
     {
         "date": "2020-05-07",
-        "ajout": 186,
-        "cumul": 5610
+        "ajout": 185,
+        "cumul": 5593,
+        "obsvAjout": 140,
+        "obsvCumul": 5548
     },
     {
         "date": "2020-05-08",
-        "ajout": 191,
-        "cumul": 5801
+        "ajout": 164,
+        "cumul": 5712
     },
     {
         "date": "2020-05-09",
-        "ajout": 193,
-        "cumul": 5994
+        "ajout": 166,
+        "cumul": 5878
+    },
+    {
+        "date": "2020-05-10",
+        "ajout": 169,
+        "cumul": 6047
+    },
+    {
+        "date": "2020-05-11",
+        "ajout": 171,
+        "cumul": 6218
+    },
+    {
+        "date": "2020-05-12",
+        "ajout": 174,
+        "cumul": 6392
+    },
+    {
+        "date": "2020-05-13",
+        "ajout": 176,
+        "cumul": 6568
+    },
+    {
+        "date": "2020-05-14",
+        "ajout": 179,
+        "cumul": 6747
     }
 ]

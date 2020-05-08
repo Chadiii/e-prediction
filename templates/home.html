@@ -17,80 +17,37 @@
             html, body {
 	            background-color: #fdfdfd;
                 margin: 15px;
-                padding-top: 50px;
+                padding-top: 10px;
             }
-            #evolution, #prediction {
-                width: 80%;
+            #evolution, #prediction, #comparaison {
+                width: 90%;
                 height: 250px;
             }
         </style>
         
 
         <script>
-            var data = 
             window.onload = function () {
-                renderEvolutionCharts('{{ data|tojson|safe }}');
                 renderPredictionCharts('{{ predictions|tojson|safe }}');
+                renderEvolutionCharts('{{ data|tojson|safe }}');
+                renderComparisonCharts('{{ historicalPredictions|tojson|safe }}');
             }
         </script>
     </head>
     
     <body>
-        <div>
-            <h2>Prédictions</h2>
-            <div class="row">
-                <div class="col-sm-6">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                            <th>Date</th>
-                            <th>Nouveau cas</th>
-                            <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for p in predictions  %}
-                                <tr>
-                                    <td>{{ p.date }}</td>
-                                    <td>+{{ p.ajout }}</td>
-                                    <td>{{ p.cumul }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-sm-6">
-                    <div id="prediction"></div>
-                </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Prédictions</h2>
+                <div id="prediction"></div>
             </div>
-        </div>
-
-        <div>
-            <h2>Evolution</h2>
-            <div class="row">
-                <div class="col-sm-6">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                            <th>Date</th>
-                            <th>Nouveau cas</th>
-                            <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for p in data  %}
-                                <tr>
-                                    <td>{{ p.date }}</td>
-                                    <td>+{{ p.ajout }}</td>
-                                    <td>{{ p.cumul }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-sm-6">
-                    <div id="evolution"></div>
-                </div>
+            <div class="col-md-6">
+                <h2>Evolution</h2>
+                <div id="evolution"></div>
+            </div>
+            <div class="col-md-6">
+                <h2>Comparaison</h2>
+                <div id="comparaison"></div>
             </div>
         </div>
     </body>
