@@ -40,11 +40,17 @@ function renderPredictionCharts(data){
       series.columns.template.column.cornerRadiusTopLeft = 10;
       series.columns.template.column.cornerRadiusTopRight = 10;
       series.columns.template.column.fillOpacity = 0.8;
+
+      /* var bullet = series.bullets.push(new am4charts.LabelBullet())
+      bullet.interactionsEnabled = false
+      bullet.label.verticalCenter = "bottom";
+      bullet.label.dy = -10;
+      //bullet.dy = 30;
+      bullet.label.text = '+ {valueY}'
+      //bullet.label.fill = am4core.color('#ffffff') */
       
       // on hover, make corner radiuses bigger
       var hoverState = series.columns.template.column.states.create("hover");
-      hoverState.properties.cornerRadiusTopLeft = 0;
-      hoverState.properties.cornerRadiusTopRight = 0;
       hoverState.properties.fillOpacity = 1;
       
       /*series.columns.template.adapter.add("fill", function(fill, target) {
@@ -190,6 +196,7 @@ function renderComparisonCharts(data){
     series.fill = am4core.color(color);
     series.stroke = am4core.color(color);
     series.bullets.push(new am4charts.CircleBullet());
+
     return series;
   }
 
@@ -208,5 +215,84 @@ function renderComparisonCharts(data){
   chart.cursor.behavior = "none";
 
   
+  }); // end am4core.ready()
+}
+
+
+
+
+
+
+
+function renderErrorsCharts(data){
+  var data = JSON.parse(data)
+  for(i in data) console.log(data[i])
+  am4core.ready(function() {
+      
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    // Create chart instance
+    var chart = am4core.create("errors", am4charts.XYChart);
+    chart.data = data;
+    
+    
+    // Create axes
+    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.dataFields.category = "date";
+    dateAxis.renderer.grid.template.location = 0;
+    dateAxis.renderer.minGridDistance = 60;
+    dateAxis.tooltip.disabled = true;
+    dateAxis.renderer.grid.template.disabled = true;
+    
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.renderer.minWidth = 20;
+    valueAxis.cursorTooltipEnabled = false;
+    valueAxis.renderer.grid.template.disabled = true;
+    
+    // Create series
+    var series = chart.series.push(new am4charts.ColumnSeries());
+    series.sequencedInterpolation = true;
+    series.dataFields.valueY = "error";
+    series.dataFields.dateX = "date";
+    series.tooltipText = '{dateX.formatDate("d MMM")}\nErreur: [bold]{error}[/]';
+    series.columns.template.strokeWidth = 0;
+    
+    series.tooltip.pointerOrientation = "vertical";
+    
+    series.columns.template.column.cornerRadiusTopLeft = 20;
+    series.columns.template.column.cornerRadiusTopRight = 20;
+    series.columns.template.column.fillOpacity = 0.8;
+    
+    // on hover, make corner radiuses bigger
+    var hoverState = series.columns.template.column.states.create("hover");
+    hoverState.properties.fillOpacity = 1;
+    
+
+
+    function cornerRadius(radius, target) {
+      if (target.dataItem && (target.dataItem.valueY < 0)) {
+        return radius == 0 ? 20 : 0;
+      }
+      else {
+        return radius;
+      }
+    }
+    series.columns.template.column.adapter.add("cornerRadiusTopLeft", cornerRadius);
+    series.columns.template.column.adapter.add("cornerRadiusBottomLeft", cornerRadius);
+    series.columns.template.column.adapter.add("cornerRadiusTopRight", cornerRadius);
+    series.columns.template.column.adapter.add("cornerRadiusBottomRight", cornerRadius);
+
+    
+
+    // Cursor
+    chart.cursor = new am4charts.XYCursor();
+    //chart.cursor.xAxis = dateAxis;
+    chart.cursor.behavior = "panX";
+    chart.cursor.lineY.disabled = true;
+    
+
+    
   }); // end am4core.ready()
 }

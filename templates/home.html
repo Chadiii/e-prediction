@@ -15,13 +15,16 @@
         <!-- Styles -->
         <style>
             html, body {
-	            background-color: #fdfdfd;
+	            background-color: #0f0d0d;
                 margin: 15px;
                 padding-top: 10px;
             }
-            #evolution, #prediction, #comparaison {
-                width: 90%;
+            #evolution, #prediction, #comparaison, #errors {
+                width: 100%;
                 height: 250px;
+            }
+            .card{
+                margin: 10px;
             }
         </style>
         
@@ -31,23 +34,48 @@
                 renderPredictionCharts('{{ predictions|tojson|safe }}');
                 renderEvolutionCharts('{{ data|tojson|safe }}');
                 renderComparisonCharts('{{ historicalPredictions|tojson|safe }}');
+                renderErrorsCharts('{{ predErrors|tojson|safe }}')
             }
         </script>
     </head>
     
     <body>
         <div class="row">
-            <div class="col-md-6">
-                <h2>Prédictions</h2>
-                <div id="prediction"></div>
+            <div class="col-md-4">
+                <div class="card border-secondary">
+                    <div class="card-header"><h5>Prédictions</h5></div>
+                    <div class="card-body text-secondary">
+                        <p class="card-text">Prédictions des cas confirmés du covid-19 pour les {{predictions|length }} prochains jours.</p>
+                        <div id="prediction"></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <h2>Evolution</h2>
-                <div id="evolution"></div>
+            <div class="col-md-4">
+                <div class="card border-secondary">
+                    <div class="card-header"><h5>Évolution</h5></div>
+                    <div class="card-body text-secondary">
+                        <p class="card-text">Évolution des cas confimés, des guérisons et des décès liés au covid-19.</p>
+                        <div id="evolution"></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <h2>Comparaison</h2>
-                <div id="comparaison"></div>
+            <div class="col-md-4">
+                <div class="card border-secondary">
+                    <div class="card-header"><h5>Comparaison</h5></div>
+                    <div class="card-body text-secondary">
+                        <p class="card-text">Comparaison entre les prédictions effectuées et les cas observés.</p>
+                        <div id="comparaison"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-secondary">
+                    <div class="card-header"><h5>Erreurs</h5></div>
+                    <div class="card-body text-secondary">
+                        <p class="card-text">Différence entre les prédictions effectuées et les cas observées.</p>
+                        <div id="errors"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 from model import Model, APIModel
-from datetime import datetime
 
 app = Flask(__name__)
 
@@ -11,7 +10,14 @@ def home():
     data = Model().getAllData()    
     predictions = Model().getPredictions()
     historicalPredictions = Model().getHistoricalPredictions()
-    return render_template('home.html', data=data, predictions=predictions, historicalPredictions=historicalPredictions)
+    predErrors = Model().getPredictionsErrors()
+    return render_template(
+        'home.html', 
+        data = data, 
+        predictions = predictions, 
+        historicalPredictions = historicalPredictions,
+        predErrors = predErrors
+    )
 
 
 @app.route('/test')

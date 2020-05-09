@@ -1,8 +1,6 @@
-from pandas import read_csv
 from datetime import datetime, timedelta
-from pandas import Series, DataFrame
-import numpy
-from statsmodels.tsa.arima_model import ARIMA
+#from pandas import Series, DataFrame, read_csv
+import pandas as pd
 import pmdarima as pm
 import json
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -14,8 +12,8 @@ import csv
 
 
 class Model():
-    series = Series()
-    allData = DataFrame()
+    series = pd.Series()
+    allData = pd.DataFrame()
     model = None
     predictions = list()
     params = (2,1,2)
@@ -33,7 +31,7 @@ class Model():
         print('download')
         def parser(x):
             return datetime.strptime(x, '%m/%d/%y')
-        cls.allData = read_csv('dailyGeneral.csv', header=0, parse_dates=[0], index_col=0, squeeze=True, date_parser=parser)
+        cls.allData = pd.read_csv('dailyGeneral.csv', header=0, parse_dates=[0], index_col=0, squeeze=True, date_parser=parser)
         cls.series = cls.allData['Cases']
 
     """
@@ -53,7 +51,7 @@ class Model():
         lastDate = cls.series.index
         lastDate = lastDate[len(lastDate)-1]
         predList = list()
-        som = int(numpy.sum(cls().series))
+        som = int(cls.series.sum())
         i = 1
         for pred in predictions:
             som = som + int(round(pred, 0))
@@ -95,7 +93,7 @@ class Model():
         lastDate = cls.series.index
         lastDate = lastDate[len(lastDate)-1]
         #predList = list()
-        som = int(numpy.sum(cls.series))
+        som = int(cls.series.sum())
         i = 1
         for pred in predictions:
             som = som + int(round(pred, 0))
@@ -126,7 +124,7 @@ class Model():
         print('addObservation')
         date=cls.series.index[len(cls.series.index)-1].strftime("%Y-%m-%d")
         ajout=int(cls.series.values[len(cls.series.values)-1])
-        cumul=int(numpy.sum(cls.series))
+        cumul=int(cls.series.sum())
         for j in range(len(cls.predictions)-1, -1, -1):
             if cls.predictions[j]["date"] == date:
                 cls.predictions[j]['obsvAjout'] = ajout
@@ -247,6 +245,34 @@ class Model():
                             break
                 historicalPred.append(cls.predictions[j])
         return historicalPred
+
+
+    @classmethod
+    def getPredictionsErrors(cls):
+        print('getPredictionsErrors')
+        if len(cls.predictions) == 0:
+            cls.loadPredictions()
+        data = cls.getAllData()
+        predErrors = list()
+        today = datetime.now().strftime("%Y-%m-%d")
+        today = datetime.strptime(today, "%Y-%m-%d")
+        for j in range(len(cls.predictions)):
+            end_date = datetime.strptime(cls.predictions[j]["date"], "%Y-%m-%d")
+            if (end_date-today).days <0:
+                if len(cls.predictions[j])==3:
+                    for d in data[::-1]:
+                        if d["date"] == cls.predictions[j]["date"]:
+                            cls.predictions[j]['obsvAjout'] = d["casesAjout"]
+                            cls.predictions[j]['obsvCumul'] = d["casesCumul"]
+                            break
+                if len(cls.predictions[j])==5:
+                    predErrors.append(
+                        {
+                            'date': cls.predictions[j]['date'],
+                            'error': cls.predictions[j]['ajout'] - cls.predictions[j]['obsvAjout'],
+                        }
+                    )
+        return predErrors
 
 
 

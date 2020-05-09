@@ -51,36 +51,43 @@
     {
         "date": "2020-05-08",
         "ajout": 164,
-        "cumul": 5712
+        "cumul": 5712,
+        "obsvAjout": 163,
+        "obsvCumul": 5711
     },
     {
         "date": "2020-05-09",
         "ajout": 166,
-        "cumul": 5878
+        "cumul": 5877
     },
     {
         "date": "2020-05-10",
-        "ajout": 169,
-        "cumul": 6047
+        "ajout": 168,
+        "cumul": 6045
     },
     {
         "date": "2020-05-11",
         "ajout": 171,
-        "cumul": 6218
+        "cumul": 6216
     },
     {
         "date": "2020-05-12",
-        "ajout": 174,
-        "cumul": 6392
+        "ajout": 173,
+        "cumul": 6389
     },
     {
         "date": "2020-05-13",
         "ajout": 176,
-        "cumul": 6568
+        "cumul": 6565
     },
     {
         "date": "2020-05-14",
-        "ajout": 179,
-        "cumul": 6747
+        "ajout": 178,
+        "cumul": 6743
+    },
+    {
+        "date": "2020-05-15",
+        "ajout": 181,
+        "cumul": 6924
     }
 ]
