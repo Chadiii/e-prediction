@@ -3,7 +3,10 @@ from model import Model, APIModel
 
 app = Flask(__name__)
 
-APIModel().checker()
+try:
+    APIModel().checker()
+except:
+    print("api model checker exception")
 
 @app.route('/')
 def home():
