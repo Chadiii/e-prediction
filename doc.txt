@@ -1,0 +1,102 @@
+// Ce fichier est la documentation du fichier model.py
+// Il explique a quoi sert chaque fonction de chaque classe
+
+
+
+
+
+Class Model
+
+    #update
+        Re entrainer le modèle avec les nouvelles données
+    
+    #download
+        Charger le fichier contenant les données du fichier dailyGeneral.csv
+    
+    #fitModel
+        Entrainer le model avec les données
+        
+    #makePrediction
+        Faire les prédictions pour les 7 prochains jours
+    
+    #addLastObservation
+        Quand on obtient le bilan de la journée, on l'ajoute dans le fichier de predictions pour pouvoir comparer
+    
+    #savePredictions
+        Ajouter les predictions effectuées dans le fichier predFile.json
+            
+    #loadPredictions
+        charger le fichier predFile.json contenant les prédictions
+    
+    #getAllData
+        retourner une liste contenant l'évolution de la maladie qui permettra de faire le graphe de l'évolution de la maladie
+        Format envoyé: 
+            {
+                'date': La date
+                'casesAjout': nombre de nouveau cas à cette date
+                'casesCumul': nombre de cas cumulé à cette date
+                'deathsAjout': nombre de nouveau décès à cette date
+                'deathsCumul': nombre de décès cumulé à cette date
+                'recoveredAjout':  nombre de nouveau gueris à cette date
+                'recoveredCumul':  nombre de gueris cumulé à cette date
+            }
+
+    #getPredictions
+        regarde dans la liste des predictions et sélectionne celles qui concerne des dates à venir
+        permettra de faire le graphe des predictions
+        Format envoyé: 
+            {
+                'date': La date
+                "ajout": prédictions du nombre de nouveau cas à cette date
+                "cumul": prédiction du nombre de cas cumulé à cette date
+            }
+    
+    #getHistoricalPredictions
+        regarde dans la liste des predictions et sélectionne celles qui concerne des dates passées
+        permettra de faire le graphe de comparaison entre les valeurs preédites et les valeurs observées
+        Format envoyé: 
+            {
+                'date': La date
+                "ajout": prédictions du nombre de nouveau cas à cette date
+                "cumul": prédiction du nombre de cas cumulé à cette date
+                "obsvAjout": nombre de nouveau cas à cette date réellement observé
+                "obsvCumul": nombre de cas cumulé à cette date réellement observé
+            }
+
+    #getPredictionsErrors
+        retourne une liste contenant les erreurs commises lors des prédictions passées
+        Permettra de faire le graphe des erreurs
+        Format envoyé:
+            {
+                'date': cls.predictions[j]['date'],
+                'error': cls.predictions[j]['ajout'] - cls.predictions[j]['obsvAjout'],
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Classe APIModel
+    
+    checker
+        lancer un processus en background qui chaque 3 heurs va verifier si il ya de nouvelles données à recevoir
+    
+
+    mustMakeRequest
+        vérifie si les données actuelles sont à jour ou pas
+            
+    
+    makeRequest
+        fait une requete vers l'api [https://corona.lmao.ninja/v2/historical/Morocco?lastdays=all] pour recevoir les données
+
+    formatAndSave
+        Traite les données recu depuis l'api pour les adapter au format voulu et les enregistre dans le fichier dailyGeneral.csv

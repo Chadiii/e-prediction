@@ -16,7 +16,6 @@ class Model():
     allData = pd.DataFrame()
     model = None
     predictions = list()
-    params = (2,1,2)
     steps = 7
     predIsLoaded = False
 
@@ -33,36 +32,6 @@ class Model():
             return datetime.strptime(x, '%m/%d/%y')
         cls.allData = pd.read_csv('dailyGeneral.csv', header=0, parse_dates=[0], index_col=0, squeeze=True, date_parser=parser)
         cls.series = cls.allData['Cases']
-
-    """
-    @classmethod
-    def fitModel1(cls):
-        if cls.series.empty:
-            cls.download()
-        val = cls.series.values
-        val = val.astype('float32')
-        val = [x for x in val]
-        # fit model
-        cls.model = ARIMA(val, order=cls.params)
-        cls.model = cls.model.fit(disp=0)
-
-        #predict
-        predictions = cls.model.forecast(steps=cls.steps)[0] 
-        lastDate = cls.series.index
-        lastDate = lastDate[len(lastDate)-1]
-        predList = list()
-        som = int(cls.series.sum())
-        i = 1
-        for pred in predictions:
-            som = som + int(round(pred, 0))
-            predList.append( {
-                'date': (lastDate + timedelta(days=i)).strftime("%Y-%m-%d"),
-                'ajout': int(round(pred, 0)),
-                'cumul': som,
-            })
-            i = i + 1
-        cls.predictions = predList
-        cls.savePredictions()"""
     
     @classmethod
     def fitModel(cls):
@@ -167,25 +136,6 @@ class Model():
         if(len(cls.predictions)==0 and mode=='normal'):
             cls.fitModel()
             
-            
-    
-    """@classmethod
-    def getData(cls):
-        print('getData')
-        if cls.series.empty:
-            cls.download()
-        dataList = list()
-        som = 0
-        for i in range(cls.series.size):
-            som = som + cls.series.values[i-1]
-            dataList.append( {
-                'date': cls.series.index[i].strftime("%Y-%m-%d"),
-                'ajout': int(cls.series.values[i]),
-                'cumul': int(som),
-            })
-
-        return dataList"""
-    
     
     @classmethod
     def getAllData(cls):
@@ -296,11 +246,31 @@ class APIModel():
         
         def fetch_data_from_api():
             print("Ckeck api -- {} ".format(datetime.now().strftime("%b %d %Y %H:%M:%S")))
-            cls.makeRequest()
+            if cls.mustMakeRequest():
+                cls.makeRequest()
         
         # add your job here
         sched.add_job(fetch_data_from_api, 'interval', hours=3, id='apiChecker')
+        fetch_data_from_api()
     
+
+    @classmethod
+    def mustMakeRequest(cls):
+        print('mustMakeRequest')
+        if Model().series.empty:
+            Model().download()
+        ser = Model().series
+        lastDate = ser.index[len(ser)-1]
+        today = datetime.now().strftime("%Y-%m-%d")
+        today = datetime.strptime(today, "%Y-%m-%d")
+        if (lastDate-today).days < -1:
+            print('make request')
+            return True
+        else:
+            print('dont make request')
+            return False
+
+
     @classmethod
     def makeRequest(cls):
         print('makeRequest')
@@ -318,18 +288,6 @@ class APIModel():
         print('formatAndSave')
         try:
             data = data['timeline']
-
-            """# only new cases
-            dailyData = [["Dates", "Daily"]]
-            precedt = 0
-            for d in data['cases'].items():
-                if d[1]>0 :
-                    dailyData.append([d[0], d[1]-precedt])
-                    precedt = d[1]
-            with open('daily.csv', 'w', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerows(dailyData)
-            print('daily.csv saved')"""
             
             # new cases, deaths and recovered
             allDailyData = [["Dates", "Cases", "Deaths", "Recovered"]]
