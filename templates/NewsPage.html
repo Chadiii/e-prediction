@@ -1,0 +1,23 @@
+{% extends 'layouts/default.html' %}
+
+{% block body %}
+<header>
+  <h3>Twitter news<br /></h3>
+</header>
+<div class="row">
+  <div class="col-12 col-lg-8 col-xl-8">
+    <div class="card">
+      <div class="card-body">
+        <div class="media align-items-center">
+          <div class="media-body ml-3">
+            <a class="twitter-timeline" data-theme="light"
+              href="https://twitter.com/LChadii/lists/covid-19?ref_src=twsrc%5Etfw">A Twitter List by LChadii</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

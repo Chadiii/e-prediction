@@ -1,0 +1,98 @@
+{% extends 'layouts/default.html' %}
+
+{% block head %}
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+      <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+      <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+      <script src="static/script.js"></script>
+      <!-- Styles -->
+      <style>
+          #evolution,
+          #prediction,
+          #comparaison,
+          #errors {
+              width: 100%;
+              height: 250px;
+          }
+    </style>
+    <!--Start Dashboard Content-->
+    <script>
+      window.onload = function () {
+          renderPredictionCharts('{{ predictions|tojson|safe }}');
+          renderEvolutionCharts('{{ data|tojson|safe }}');
+          renderComparisonCharts('{{ historicalPredictions|tojson|safe }}');
+          renderErrorsCharts('{{ predErrors|tojson|safe }}')
+      }
+    </script>
+
+{% endblock %} 
+
+
+{% block body %}
+    <div class="row mt-3">
+      <header>
+        <h3>COVID-19 prediction<br /></h3>
+        <p>This site is produced by Data Scientist students from ENSIAS dedicated to monitoring the results of
+          covid-19 mainly at national level in Morocco as well as predicting the evolution of the pandemic. The
+          predictions are based on maching learning algorithms which make it possible to understand and give
+          predictions of the number of positive cases for a given day.</p>
+      </header>
+    </div>
+    <!--End Row-->
+
+    <div class="row">
+      <div class="col-12 col-lg-6 col-xl-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="media align-items-center">
+              <div class="media-body ml-3">
+                <h6 class="mb-0">Prédictions</h6>
+                <small class="mb-0">Prédictions des cas confirmés du covid-19 pour les {{predictions|length }} prochains jours.</small>
+                <div id="prediction"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 col-xl-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="media align-items-center">
+              <div class="media-body ml-3">
+                <h6 class="mb-0">Évolution</h6>
+                <small class="mb-0">Évolution des cas confimés, des guérisons et des décès liés au covid-19.</small>
+                <div id="evolution"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 col-xl-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="media align-items-center">
+              <div class="media-body ml-3">
+                <h6 class="mb-0">Comparaison</h6>
+                <small class="mb-0">Comparaison entre les prédictions effectuées et les cas observés.</small>
+                <div id="comparaison"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 col-xl-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="media align-items-center">
+              <div class="media-body ml-3">
+                <h6 class="mb-0">Erreurs</h6>
+                <small class="mb-0">Différence entre les prédictions effectuées et les cas observées.</small>
+                <div id="errors"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End Row-->
+{% endblock %}

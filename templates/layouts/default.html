@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="#" />
+
+    <title>e-predictions</title>
+    <!--favicon-->
+
+    <!-- Vector CSS -->
+    <link href="static/css/jquery-jvectormap-2.0.2.css" rel="stylesheet">
+    <!-- simplebar CSS-->
+    <link href="static/css/simplebar.css" rel="stylesheet">
+    <!-- Bootstrap core CSS-->
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- animate CSS-->
+    <link href="static/css/animate.css" rel="stylesheet" type="text/css">
+    <!-- Icons CSS-->
+    <link href="static/css/icons.css" rel="stylesheet" type="text/css">
+
+    <link href="static/css/icon.css" rel="stylesheet" type="text/css">
+
+    <!-- Sidebar CSS-->
+    <link href="static/css/sidebar-menu.css" rel="stylesheet">
+    <!-- Custom Style-->
+    <link href="static/css/app-style.css" rel="stylesheet">
+    <!-- skins CSS-->
+    <link href="static/css/skins.css" rel="stylesheet">
+    <!-- skins CSS-->
+    <link href="static/css/skins.css" rel="stylesheet">
+
+    {% block head %}{% endblock %} 
+
+
+</head>
+
+<body>
+
+    <!-- start loader -->
+    <div id="pageloader-overlay" class="visible incoming" style="display: none;">
+        <div class="loader-wrapper-outer">
+            <div class="loader-wrapper-inner">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+    <!-- end loader -->
+
+    <!-- Start wrapper-->
+    <div id="wrapper">
+
+        <!--Start sidebar-wrapper-->
+        <div id="sidebar-wrapper" data-simplebar="init" data-simplebar-auto-hide="true" class="active">
+            <div class="simplebar-track vertical" style="visibility: visible;">
+                <div class="simplebar-scrollbar" style="visibility: visible; top: 0px; height: 76px;"></div>
+            </div>
+            <div class="simplebar-track horizontal" style="visibility: hidden;">
+                <div class="simplebar-scrollbar"></div>
+            </div>
+            <div class="simplebar-scroll-content" style="padding-right: 17px; margin-bottom: -34px;">
+                <div class="simplebar-content" style="padding-bottom: 17px; margin-right: -17px;">
+                    <div class="brand-logo">
+                        <a href="/">
+                            <img src="static/img/logo-icon.png" class="logo-icon" alt="logo icon">
+                            <h5 class="logo-text">E-PREDICTIONS</h5>
+                        </a>
+                    </div>
+
+                    {% include 'layouts/_nav.html' %}
+
+                </div>
+            </div>
+        </div>
+        <!--End sidebar-wrapper-->
+
+        <!--Start topbar header-->
+        <header class="topbar-nav">
+            <nav id="header-setting" class="navbar navbar-expand fixed-top">
+                <ul class="navbar-nav mr-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link toggle-menu" href="javascript:void();">
+                            <i class="menu-icon fa-xx"><img src="static/img/Hamburger_icon.png" class="fa-xx"
+                                    alt=""></i>
+                        </a>
+                    </li>
+                    <a href="#" class="image"><img src="static/img/iwim11.jpg" alt="" /></a>
+                    <a href="#" class="image"><img src="static/img/ensias1.jpg" alt="" /></a>
+                </ul>
+
+                <header id="header">
+                    <a href="#" class="image"><img src="static/img/logo-icon.png" class="logo-icon" alt="logo icon"
+                            alt="" /></a>
+                    <a href="/" class="logo"><strong>E-PREDICTIONS</strong> by IWIM team</a>
+                </header>
+
+        </header>
+        <!--End topbar header-->
+
+        <div class="clearfix"></div>
+
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                {% block body %}{% endblock %} 
+            </div>
+        </div>
+
+
+        <!--End Row-->
+
+        <!--End footer-->
+
+        <!--Start Back To Top Button-->
+        <a href="javaScript:void();" class="back-to-top"> <img src="static/img/up_arrow.png" width="60%"> </a>
+        <!--End Back To Top Button-->
+
+        <!--End wrapper-->
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="static/js/jquery.min.js"></script>
+        <script src="static/js/popper.min.js"></script>
+        <script src="static/js/bootstrap.min.js"></script>
+
+        <!-- simplebar js -->
+        <script src="static/js/simplebar.js"></script>
+        <!-- sidebar-menu js -->
+        <script src="static/js/sidebar-menu.js"></script>
+        <!-- Custom scripts -->
+        <script src="static/js/app-script.js"></script>
+        <!-- Sparkline JS -->
+        <script src="static/js/jquery.sparkline.min.js"></script>
+        <script src="static/js/excanvas.js"></script>
+        <script src="static/js/jquery.knob.js"></script>
+
+
+        <script>
+            $(function () {
+                $(".knob").knob();
+            });
+        </script>
+
+
+    </div>
+</body>
+
+</html>
