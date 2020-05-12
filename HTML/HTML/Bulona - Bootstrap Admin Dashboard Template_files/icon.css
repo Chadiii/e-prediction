@@ -15,3 +15,15 @@ height: 28px;
 }
     
 .fa-1x{font-size:1em}
+.ctitle-top {
+    background: #FFFFFF;
+    border-bottom: 2px solid #CCCCE9;
+    box-sizing: border-box;
+    padding: 3.75em calc((100vw - 100%) / 2);
+    position: relative;
+    margin-left: 50%;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+    width: 100vw;
+}
+
