@@ -1,5 +1,6 @@
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, send_file, request
 from model import Model, APIModel
+#from chatbot import chatbot
 
 app = Flask(__name__)
 
@@ -16,7 +17,7 @@ def home():
         historicalPredictions = Model().getHistoricalPredictions()
         predErrors = Model().getPredictionsErrors()
         return render_template(
-            'home.html', 
+            'HomePage.html', 
             data = data, 
             predictions = predictions, 
             historicalPredictions = historicalPredictions,
@@ -26,6 +27,59 @@ def home():
         abort(500)
 
 
+@app.route('/awareness')
+def awareness():
+    try:
+        return render_template('AwarenessPage.html')
+    except:
+        abort(500)
+
+@app.route('/info')
+def info():
+    try:
+        return render_template('InformationPage.html')
+    except:
+        abort(500)
+
+
+@app.route('/about')
+def about():
+    try:
+        return render_template('AboutPage.html')
+    except:
+        abort(500)
+
+@app.route('/worldmap')
+def worldmap():
+    try:
+        return render_template('WorldmapPage.html')
+    except:
+        abort(500)
+
+@app.route('/chatbot')
+def chatbot():
+    try:
+        return render_template('ChatbotPage.html')
+    except:
+        abort(500)
+
+@app.route("/get")
+def get_bot_response():
+    """try:
+        userText = request.args.get('msg')
+        return str(chatbot.get_response(userText))
+    except:
+        abort(500)"""
+
+
+
+@app.route('/news')
+def news():
+    try:
+        return render_template('NewsPage.html')
+    except:
+        abort(500)
+
 @app.route('/test')
 def test():
     try:
@@ -33,6 +87,19 @@ def test():
         return response
     except:
         abort(500)
+
+@app.route('/download')
+def downloadFile ():
+    try:
+        name = request.args.get('name')
+        if(name=="data"):
+            path = "dailyGeneral.csv"
+        else:
+            path = "predFile.json"
+        return send_file(path, as_attachment=True)
+    except:
+        abort(500)
+    #For windows you need to use drive name [ex: F:/Example.pdf]
 
 
 @app.errorhandler(500)

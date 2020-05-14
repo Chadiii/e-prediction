@@ -1,7 +1,7 @@
 
 function renderPredictionCharts(data){
     var data = JSON.parse(data)
-    for(i in data) console.log(data[i])
+    //for(i in data) console.log(data[i])
     am4core.ready(function() {
         
       // Themes begin
@@ -26,6 +26,7 @@ function renderPredictionCharts(data){
       valueAxis.min = 0;
       valueAxis.cursorTooltipEnabled = false;
       valueAxis.renderer.grid.template.disabled = true;
+      valueAxis.renderer.labels.template.disabled = true;
       
       // Create series
       var series = chart.series.push(new am4charts.ColumnSeries());
@@ -98,6 +99,7 @@ function renderEvolutionCharts(data){
     var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.cursorTooltipEnabled = false;
     valueAxis.renderer.grid.template.disabled = true;
+    valueAxis.renderer.labels.template.disabled = true;
 
     function createSeries(field, subfield, color, name) {
       var series = chart.series.push(new am4charts.LineSeries());
@@ -172,6 +174,7 @@ function renderComparisonCharts(data){
   var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
   valueAxis.cursorTooltipEnabled = false;
   valueAxis.renderer.grid.template.disabled = true;
+  valueAxis.renderer.labels.template.disabled = true;
   
 
   function createSeries(field, subfield, color, name) {
@@ -226,7 +229,7 @@ function renderComparisonCharts(data){
 
 function renderErrorsCharts(data){
   var data = JSON.parse(data)
-  for(i in data) console.log(data[i])
+  //for(i in data) console.log(data[i])
   am4core.ready(function() {
       
     // Themes begin
@@ -250,6 +253,7 @@ function renderErrorsCharts(data){
     valueAxis.renderer.minWidth = 20;
     valueAxis.cursorTooltipEnabled = false;
     valueAxis.renderer.grid.template.disabled = true;
+    valueAxis.renderer.labels.template.disabled = true;
     
     // Create series
     var series = chart.series.push(new am4charts.ColumnSeries());
