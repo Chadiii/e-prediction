@@ -38,7 +38,8 @@
     width: 100%;
     max-width: 867px;
     margin: 25px 10px;
-    height: calc(100% - 50px);
+    height: 500px;
+    /* height: calc(100% - 50px); */
     border: var(--border);
     border-radius: 5px;
     background: var(--msger-bg);
@@ -239,7 +240,7 @@
     function botResponse(rawText) {
 
       // Bot Response
-      $.get("/get", { msg: rawText }).done(function (data) {
+      $.get("/get_bot_response", { msg: rawText }).done(function (data) {
         console.log(rawText);
         console.log(data);
         const msgText = data;

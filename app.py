@@ -1,6 +1,6 @@
 from flask import Flask, render_template, abort, send_file, request
 from model import Model, APIModel
-#from chatbot import chatbot
+from chatbot import chatbot as cb
 
 app = Flask(__name__)
 
@@ -16,12 +16,18 @@ def home():
         predictions = Model().getPredictions()
         historicalPredictions = Model().getHistoricalPredictions()
         predErrors = Model().getPredictionsErrors()
+        if(len(data)>0):
+            resume = data[len(data)-1]
+        if(len(predictions)>=2):
+            resume["prediction1"] = predictions[0]
+            resume["prediction2"] = predictions[1]
         return render_template(
             'HomePage.html', 
             data = data, 
             predictions = predictions, 
             historicalPredictions = historicalPredictions,
-            predErrors = predErrors
+            predErrors = predErrors,
+            resume = resume,
         )
     except:
         abort(500)
@@ -63,11 +69,11 @@ def chatbot():
     except:
         abort(500)
 
-@app.route("/get")
+@app.route("/get_bot_response")
 def get_bot_response():
+    userText = request.args.get('msg')
+    return str(cb.get_response(userText))
     """try:
-        userText = request.args.get('msg')
-        return str(chatbot.get_response(userText))
     except:
         abort(500)"""
 
