@@ -6,6 +6,7 @@ import json
 from apscheduler.schedulers.background import BackgroundScheduler
 import requests
 import csv
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, median_absolute_error
 
 
 
@@ -198,33 +199,72 @@ class Model():
 
 
     @classmethod
-    def getPredictionsErrors(cls):
+    def getPredictionsErrors(cls, data):
         print('getPredictionsErrors')
-        if len(cls.predictions) == 0:
-            cls.loadPredictions()
-        data = cls.getAllData()
         predErrors = list()
-        today = datetime.now().strftime("%Y-%m-%d")
-        today = datetime.strptime(today, "%Y-%m-%d")
-        for j in range(len(cls.predictions)):
-            end_date = datetime.strptime(cls.predictions[j]["date"], "%Y-%m-%d")
-            if (end_date-today).days <0:
-                if len(cls.predictions[j])==3:
-                    for d in data[::-1]:
-                        if d["date"] == cls.predictions[j]["date"]:
-                            cls.predictions[j]['obsvAjout'] = d["casesAjout"]
-                            cls.predictions[j]['obsvCumul'] = d["casesCumul"]
-                            break
-                if len(cls.predictions[j])==5:
-                    predErrors.append(
-                        {
-                            'date': cls.predictions[j]['date'],
-                            'error': cls.predictions[j]['ajout'] - cls.predictions[j]['obsvAjout'],
-                        }
-                    )
+        for d in data:
+            predErrors.append({
+                    'date': d['date'],
+                    'error': d['ajout'] - d['obsvAjout'],
+                })
         return predErrors
 
 
+    
+    @classmethod
+    def showPredictions(cls):
+        print('showPredictions')
+        if len(cls.predictions) == 0:
+            cls.loadPredictions()
+        jsonObject = ""
+        try:
+            jsonObject = json.dumps(cls.predictions, indent=4)
+        except:
+            print("error while converting predictions to json")
+        return jsonObject
+    
+    @classmethod
+    def showData(cls):
+        print('showPredictions')
+        if cls.allData.empty:
+            cls.download()
+        jsonObject = "Dates,Cases,Deaths,Recovered\n"
+        for i in range(len(cls.allData)):
+            jsonObject = jsonObject + "{},".format(cls.allData.index[i].strftime('%m/%d/%y'))
+            jsonObject = jsonObject + "{},".format(int(cls.allData.values[i][0]))
+            jsonObject = jsonObject + "{},".format(int(cls.allData.values[i][1]))
+            jsonObject = jsonObject + "{}\n".format(int(cls.allData.values[i][2]))
+        return jsonObject
+
+
+    @classmethod
+    def getAccuracy(cls, data):
+        print('getAccuracy')
+        obsv = list()
+        pred = list()
+        for d in data:
+            obsv.append(d['obsvCumul'])
+            pred.append(d['cumul'])
+
+        res = list()
+        res.append({
+                'name': 'Mean absolute error',
+                'value': round(mean_absolute_error(obsv, pred),2),
+            })
+        res.append({
+                'name': 'Mean squared error',
+                'value': round(mean_squared_error(obsv, pred),2),
+            })
+        res.append({
+                'name': 'Median squared error',
+                'value': round(median_absolute_error(obsv, pred),2),
+            })
+        res.append({
+                'name': 'R squared',
+                'value': round(r2_score(obsv, pred),2),
+            })
+        return res
+        
 
 
 
@@ -238,20 +278,23 @@ class Model():
 
 
 class APIModel():
-    
+    sched = None
+
+    @classmethod
+    def bgScheduler(cls):
+        print('bgScheduler')
+        cls.sched = BackgroundScheduler() # Scheduler object
+        cls.sched.print_jobs()
+        # add your job here
+        cls.sched.add_job(cls.checker, 'interval', hours=3, id='apiChecker', replace_existing=True)
+        #sched.start()
+
+
     @classmethod
     def checker(cls):
-        sched = BackgroundScheduler() # Scheduler object
-        sched.start()
-        
-        def fetch_data_from_api():
-            print("Ckeck api -- {} ".format(datetime.now().strftime("%b %d %Y %H:%M:%S")))
-            if cls.mustMakeRequest():
-                cls.makeRequest()
-        
-        # add your job here
-        sched.add_job(fetch_data_from_api, 'interval', hours=3, id='apiChecker')
-        fetch_data_from_api()
+        print("Ckeck api -- {} ".format(datetime.now().strftime("%b %d %Y %H:%M:%S")))
+        if cls.mustMakeRequest():
+            cls.makeRequest()
     
 
     @classmethod

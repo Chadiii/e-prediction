@@ -1,4 +1,4 @@
-from flask import Flask, render_template, abort, send_file, request
+from flask import Flask, render_template, abort, request
 from model import Model, APIModel
 from chatbot import chatbot as cb
 
@@ -9,13 +9,20 @@ try:
 except:
     print("api model checker exception")
 
+try:
+    APIModel().bgScheduler()
+    APIModel().sched.start()
+except:
+    print("api model bgScheduler exception")
+
 @app.route('/')
 def home():
     try:
         data = Model().getAllData()    
         predictions = Model().getPredictions()
         historicalPredictions = Model().getHistoricalPredictions()
-        predErrors = Model().getPredictionsErrors()
+        predErrors = Model().getPredictionsErrors(historicalPredictions)
+        accuracy = Model().getAccuracy(historicalPredictions)
         if(len(data)>0):
             resume = data[len(data)-1]
         if(len(predictions)>=2):
@@ -28,6 +35,7 @@ def home():
             historicalPredictions = historicalPredictions,
             predErrors = predErrors,
             resume = resume,
+            accuracy = accuracy,
         )
     except:
         abort(500)
@@ -86,26 +94,26 @@ def news():
     except:
         abort(500)
 
-@app.route('/test')
-def test():
+@app.route('/update')
+def update():
     try:
         response = APIModel().makeRequest()
         return response
     except:
         abort(500)
 
-@app.route('/download')
+@app.route('/check')
 def downloadFile ():
     try:
         name = request.args.get('name')
-        if(name=="data"):
-            path = "dailyGeneral.csv"
+        if name is None:
+            return "<ul> <li><a href='/check?name=data'>Data</a></li> <li><a href='/check?name=pred'>Predictions</a></li> </ul>"
+        elif(name=="data"):
+            return Model().showData()
         else:
-            path = "predFile.json"
-        return send_file(path, as_attachment=True)
+            return Model().showPredictions()
     except:
         abort(500)
-    #For windows you need to use drive name [ex: F:/Example.pdf]
 
 
 @app.errorhandler(500)

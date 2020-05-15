@@ -68,10 +68,17 @@ Class Model
         Permettra de faire le graphe des erreurs
         Format envoyé:
             {
-                'date': cls.predictions[j]['date'],
-                'error': cls.predictions[j]['ajout'] - cls.predictions[j]['obsvAjout'],
+                'date': La date
+                'error': différence entre la prédiction et la réalité
             }
+    
+    #showPredictions
+        Affiche le fichier json des prédictions
+    #showData
+        Affiche le fichier csv des données
 
+    getAccuracy
+        Calcul quelques critères de performance du modèle
 
 
 
@@ -87,9 +94,11 @@ Class Model
 
 Classe APIModel
     
-    checker
+    bgScheduler
         lancer un processus en background qui chaque 3 heurs va verifier si il ya de nouvelles données à recevoir
-    
+
+    checker
+        vérifie si on doit faire une mise à jour des données si oui il lance la mise à jour
 
     mustMakeRequest
         vérifie si les données actuelles sont à jour ou pas
