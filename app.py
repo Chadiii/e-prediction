@@ -23,6 +23,7 @@ def home():
         historicalPredictions = Model().getHistoricalPredictions()
         predErrors = Model().getPredictionsErrors(historicalPredictions)
         accuracy = Model().getAccuracy(historicalPredictions)
+        worldTopCounries = APIModel().getWorldTopCounries()
         if(len(data)>0):
             resume = data[len(data)-1]
         if(len(predictions)>=2):
@@ -36,6 +37,7 @@ def home():
             predErrors = predErrors,
             resume = resume,
             accuracy = accuracy,
+            worldTopCounries = worldTopCounries,
         )
     except:
         abort(500)

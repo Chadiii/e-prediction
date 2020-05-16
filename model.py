@@ -357,3 +357,20 @@ class APIModel():
                 
         except:
             print('exception occured while making formatAndSave')
+
+    
+    
+    @classmethod
+    def getWorldTopCounries(cls):
+        print('getWorldTopCounries')
+        try:
+            n = 15
+            corona_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/04-03-2020.csv')
+            by_country = corona_df.groupby('Country_Region').sum()[['Confirmed', 'Deaths', 'Recovered', 'Active']]
+            cdf = by_country.nlargest(n, 'Confirmed')[['Confirmed']]
+            pairs = [(country,confirmed) for country, confirmed in zip(cdf.index,cdf['Confirmed'])]
+            return pairs
+        except:
+            print("exception occured while getWorldTopCounries")
+            return []
+            
