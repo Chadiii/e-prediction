@@ -197,20 +197,19 @@ class Model():
                 historicalPred.append(cls.predictions[j])
         return historicalPred
 
-
     @classmethod
     def getPredictionsErrors(cls, data):
         print('getPredictionsErrors')
         predErrors = list()
         for d in data:
-            predErrors.append({
+            if len(d) > 3:
+                predErrors.append({
                     'date': d['date'],
                     'error': d['ajout'] - d['obsvAjout'],
                 })
         return predErrors
 
-
-    
+   
     @classmethod
     def showPredictions(cls):
         print('showPredictions')
@@ -243,8 +242,9 @@ class Model():
         obsv = list()
         pred = list()
         for d in data:
-            obsv.append(d['obsvCumul'])
-            pred.append(d['cumul'])
+            if len(d) > 3:
+             obsv.append(d['obsvCumul'])
+             pred.append(d['cumul'])
 
         res = list()
         res.append({
