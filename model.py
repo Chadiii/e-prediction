@@ -361,7 +361,7 @@ class APIModel():
     
     
     @classmethod
-    def getWorldTopCounries(cls):
+    def getWorldTopCounriesT(cls):
         print('getWorldTopCounries')
         try:
             n = 15
@@ -373,4 +373,17 @@ class APIModel():
         except:
             print("exception occured while getWorldTopCounries")
             return []
+
+    
+    @classmethod
+    def getWorldTopCounries(cls):
+        print('getWorldTopCounries')
+        try:
+            n = 10
+            response = requests.get("https://disease.sh/v2/countries?yesterday=true&sort=cases&allowNull=false")
+        except:
+            print('exception occured while making WorldTopCountries')
+        if (response.status_code==200):
+            x = json.loads(response.text)
+            return x[:n]
             

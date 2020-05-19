@@ -7,6 +7,13 @@
 <script src="static/script.js"></script>
 <!-- Styles -->
 <style>
+  .image {
+  width: 120%;
+  height: auto;
+  }
+
+
+
   #evolution,
   #prediction,
   #comparaison,
@@ -236,13 +243,15 @@
           <tr>
             <th>Country</th>
             <th>Confirmed cases</th>
+            <th>Cas par Million</th>
           </tr>
         </thead>
         <tbody>
-          {% for item in worldTopCounries %}
+          {% for c in worldTopCounries %}
           <tr>
-            <td><i class="flag-icon flag-icon-ca mr-2"></i> {{ item[0] }}</td>
-            <td>{{ item[1] }}</td>
+            <td><i class="flag-icon flag-icon-ca mr-2"> <img src='{{c.countryInfo.flag}}' alt="Avatar" class="image"></i> {{c.country}}</td>
+            <td>{{c.cases}}</td>
+            <td>{{c.casesPerOneMillion}}</td>
           </tr>
           {% endfor %}
         </tbody>
