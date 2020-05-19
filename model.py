@@ -84,11 +84,11 @@ class Model():
             if (not found):
                 cls.predictions.append(dic)
                 
-        cls.addLastObservation()
+        cls.addObservation()
         #cls.predictions = predList
         cls.savePredictions()
     
-    @classmethod
+    """@classmethod
     def addLastObservation(cls):
         #addLastObservation in correspondant prediction dict
         print('addObservation')
@@ -99,7 +99,23 @@ class Model():
             if cls.predictions[j]["date"] == date:
                 cls.predictions[j]['obsvAjout'] = ajout
                 cls.predictions[j]['obsvCumul'] = cumul
-                break
+                break"""
+    
+    @classmethod
+    def addObservation(cls):
+        #addLastObservation in correspondant prediction dict
+        print('addObservation')
+        data = cls.getAllData()
+        today = datetime.now().strftime("%Y-%m-%d")
+        today = datetime.strptime(today, "%Y-%m-%d")
+        for j in range(len(cls.predictions)):
+            predDate = datetime.strptime(cls.predictions[j]["date"], "%Y-%m-%d")
+            if ((predDate-today).days <0 and len(cls.predictions[j])==3):
+                for d in data[::-1]:
+                    if d["date"] == cls.predictions[j]["date"]:
+                        cls.predictions[j]['obsvAjout'] = d["casesAjout"]
+                        cls.predictions[j]['obsvCumul'] = d["casesCumul"]
+                        break
 
         
     
@@ -358,21 +374,6 @@ class APIModel():
         except:
             print('exception occured while making formatAndSave')
 
-    
-    
-    @classmethod
-    def getWorldTopCounriesT(cls):
-        print('getWorldTopCounries')
-        try:
-            n = 15
-            corona_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/04-03-2020.csv')
-            by_country = corona_df.groupby('Country_Region').sum()[['Confirmed', 'Deaths', 'Recovered', 'Active']]
-            cdf = by_country.nlargest(n, 'Confirmed')[['Confirmed']]
-            pairs = [(country,confirmed) for country, confirmed in zip(cdf.index,cdf['Confirmed'])]
-            return pairs
-        except:
-            print("exception occured while getWorldTopCounries")
-            return []
 
     
     @classmethod
@@ -381,9 +382,11 @@ class APIModel():
         try:
             n = 10
             response = requests.get("https://disease.sh/v2/countries?yesterday=true&sort=cases&allowNull=false")
+            if (response.status_code==200):
+                x = json.loads(response.text)
+                return x[:n]
+            return []
         except:
             print('exception occured while making WorldTopCountries')
-        if (response.status_code==200):
-            x = json.loads(response.text)
-            return x[:n]
+            return []
             

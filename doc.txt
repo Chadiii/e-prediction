@@ -109,3 +109,6 @@ Classe APIModel
 
     formatAndSave
         Traite les données recu depuis l'api pour les adapter au format voulu et les enregistre dans le fichier dailyGeneral.csv
+    
+    getWorldTopCounries
+        Récupère le top 10 des pays du monde aves le plus de cas confirmés
