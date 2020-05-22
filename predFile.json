@@ -9,7 +9,7 @@
     {
         "date": "2020-05-02",
         "ajout": 106,
-        "cumul": 4634,
+        "cumul": 4675,
         "obsvAjout": 160,
         "obsvCumul": 4729
     },
@@ -72,7 +72,7 @@
     {
         "date": "2020-05-11",
         "ajout": 197,
-        "cumul": 6297,
+        "cumul": 6260,
         "obsvAjout": 218,
         "obsvCumul": 6281
     },
@@ -86,7 +86,7 @@
     {
         "date": "2020-05-13",
         "ajout": 206,
-        "cumul": 6682,
+        "cumul": 6624,
         "obsvAjout": 94,
         "obsvCumul": 6512
     },
@@ -114,50 +114,71 @@
     {
         "date": "2020-05-17",
         "ajout": 81,
-        "cumul": 6813,
+        "cumul": 6822,
         "obsvAjout": 129,
         "obsvCumul": 6870
     },
     {
         "date": "2020-05-18",
         "ajout": 82,
-        "cumul": 6895,
+        "cumul": 6952,
         "obsvAjout": 82,
         "obsvCumul": 6952
     },
     {
         "date": "2020-05-19",
         "ajout": 97,
-        "cumul": 7049
+        "cumul": 7049,
+        "obsvAjout": 71,
+        "obsvCumul": 7023
     },
     {
         "date": "2020-05-20",
-        "ajout": 98,
-        "cumul": 7147
+        "ajout": 85,
+        "cumul": 7108,
+        "obsvAjout": 110,
+        "obsvCumul": 7133
     },
     {
         "date": "2020-05-21",
-        "ajout": 100,
-        "cumul": 7247
+        "ajout": 99,
+        "cumul": 7232,
+        "obsvAjout": 78,
+        "obsvCumul": 7211
     },
     {
         "date": "2020-05-22",
-        "ajout": 101,
-        "cumul": 7348
+        "ajout": 90,
+        "cumul": 7301
     },
     {
         "date": "2020-05-23",
-        "ajout": 102,
-        "cumul": 7450
+        "ajout": 91,
+        "cumul": 7392
     },
     {
         "date": "2020-05-24",
-        "ajout": 103,
-        "cumul": 7553
+        "ajout": 92,
+        "cumul": 7484
     },
     {
         "date": "2020-05-25",
-        "ajout": 105,
-        "cumul": 7658
+        "ajout": 93,
+        "cumul": 7577
+    },
+    {
+        "date": "2020-05-26",
+        "ajout": 94,
+        "cumul": 7671
+    },
+    {
+        "date": "2020-05-27",
+        "ajout": 95,
+        "cumul": 7766
+    },
+    {
+        "date": "2020-05-28",
+        "ajout": 96,
+        "cumul": 7862
     }
 ]

@@ -116,6 +116,8 @@ class Model():
                         cls.predictions[j]['obsvAjout'] = d["casesAjout"]
                         cls.predictions[j]['obsvCumul'] = d["casesCumul"]
                         break
+            if(len(cls.predictions[j])==5):
+                cls.predictions[j]['cumul'] = cls.predictions[j]['obsvCumul'] - cls.predictions[j]['obsvAjout'] + cls.predictions[j]['ajout']
 
         
     
