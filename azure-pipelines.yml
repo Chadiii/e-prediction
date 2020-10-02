@@ -23,7 +23,7 @@ variables:
   projectRoot: $(System.DefaultWorkingDirectory)
   
   # Python version: 3.7
-  pythonVersion: '3.7.6'
+  pythonVersion: '3.7'
 
 stages:
 - stage: Build
@@ -85,3 +85,9 @@ stages:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.7.6'
+    addToPath: true
+    architecture: 'x64'
