@@ -35,7 +35,9 @@ stages:
     steps:
     - task: UsePythonVersion@0
       inputs:
-        versionSpec: '$(pythonVersion)'
+        versionSpec: '3.7.6'
+        addToPath: true
+        architecture: x64
       displayName: 'Use Python $(pythonVersion)'
     
     - script: |
@@ -76,9 +78,8 @@ stages:
           
           - task: UsePythonVersion@0
             inputs:
-              versionSpec: '3.7.6'
-              addToPath: true
-              architecture: x64
+              versionSpec: '$(pythonVersion)'
+            displayName: 'USE Python version'
 
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App : e-prediction'
