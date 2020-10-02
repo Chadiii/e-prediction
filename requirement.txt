@@ -1,0 +1,7 @@
+flask
+pandas
+pmdarima
+apscheduler
+requests
+ChatterBot==1.0.5
+chatterbot-corpus

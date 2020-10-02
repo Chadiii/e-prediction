@@ -149,36 +149,85 @@
     {
         "date": "2020-05-22",
         "ajout": 90,
-        "cumul": 7301
+        "cumul": 7301,
+        "obsvAjout": 121,
+        "obsvCumul": 7332
     },
     {
         "date": "2020-05-23",
         "ajout": 91,
-        "cumul": 7392
+        "cumul": 7423,
+        "obsvAjout": 74,
+        "obsvCumul": 7406
     },
     {
         "date": "2020-05-24",
         "ajout": 92,
-        "cumul": 7484
+        "cumul": 7498,
+        "obsvAjout": 27,
+        "obsvCumul": 7433
     },
     {
         "date": "2020-05-25",
         "ajout": 93,
-        "cumul": 7577
+        "cumul": 7526,
+        "obsvAjout": 99,
+        "obsvCumul": 7532
     },
     {
         "date": "2020-05-26",
         "ajout": 94,
-        "cumul": 7671
+        "cumul": 7626,
+        "obsvAjout": 45,
+        "obsvCumul": 7577
     },
     {
         "date": "2020-05-27",
         "ajout": 95,
-        "cumul": 7766
+        "cumul": 7672,
+        "obsvAjout": 24,
+        "obsvCumul": 7601
     },
     {
         "date": "2020-05-28",
         "ajout": 96,
-        "cumul": 7862
+        "cumul": 7697,
+        "obsvAjout": 42,
+        "obsvCumul": 7643
+    },
+    {
+        "date": "2020-10-02",
+        "ajout": 2131,
+        "cumul": 128175
+    },
+    {
+        "date": "2020-10-03",
+        "ajout": 2232,
+        "cumul": 130407
+    },
+    {
+        "date": "2020-10-04",
+        "ajout": 2282,
+        "cumul": 132689
+    },
+    {
+        "date": "2020-10-05",
+        "ajout": 2178,
+        "cumul": 134867
+    },
+    {
+        "date": "2020-10-06",
+        "ajout": 2188,
+        "cumul": 137055
+    },
+    {
+        "date": "2020-10-07",
+        "ajout": 2198,
+        "cumul": 139253
+    },
+    {
+        "date": "2020-10-08",
+        "ajout": 2208,
+        "cumul": 141461
     }
 ]
