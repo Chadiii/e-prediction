@@ -76,8 +76,9 @@ stages:
           
           - task: UsePythonVersion@0
             inputs:
-              versionSpec: '$(pythonVersion)'
-            displayName: 'Use Python version'
+              versionSpec: '3.7.6'
+              addToPath: true
+              architecture: x64
 
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App : e-prediction'
@@ -86,8 +87,3 @@ stages:
               appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
 
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.7.6'
-    addToPath: true
-    architecture: 'x64'
